@@ -11,9 +11,8 @@ typedef struct {
 
 typedef struct {
     int numVertices;
-    Vertice* vertices;
-
     int numArestas;
+    Vertice* vertices;
     Aresta* arestas;
 } Objeto;
 
