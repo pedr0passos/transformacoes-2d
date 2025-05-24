@@ -1,33 +1,36 @@
-# Compilador
-CC = gcc
+CC       = gcc
 
-# Diretórios
-SRC_DIR = src
-INC_DIR = $(SRC_DIR)/include
-LIB_DIR = $(SRC_DIR)/lib
+SRC_DIR  = src
+BUILD_DIR= build
+BIN_DIR  = bin
+INCLUDE_DIR = include
+LIB_DIR  = src/lib 
 
-# Flags de compilação
-CFLAGS = -Wall -g -I$(INC_DIR)
+SRC = $(wildcard $(SRC_DIR)/*.c) \
+      $(wildcard $(SRC_DIR)/core/*.c) \
+      $(wildcard $(SRC_DIR)/utils/*.c)
 
-# Flags de linkagem
+OBJ = $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRC))
+
+CFLAGS = -Wall -g \
+         -I$(INCLUDE_DIR) \
+         -Isrc \
+         -Isrc/core \
+         -Isrc/utils
+
 LDFLAGS = -L$(LIB_DIR) -lmingw32 -lSDL2main -lSDL2
 
-# Arquivos fonte e objeto
-SRC = $(wildcard $(SRC_DIR)/*.c)
-OBJ = $(SRC:.c=.o)
-TARGET = programa
+TARGET = $(BIN_DIR)/programa
 
-# Regra padrão
 all: $(TARGET)
 
-# Linkagem final
 $(TARGET): $(OBJ)
+	@mkdir -p $(BIN_DIR)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
-# Compilação de .c para .o
-%.o: %.c
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-# Limpeza
 clean:
-	del /Q $(SRC_DIR)\*.o *.exe
+	@rm -rf $(BUILD_DIR) $(BIN_DIR)
