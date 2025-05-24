@@ -4,6 +4,7 @@
 
 Objeto* carregarObjeto(const char* nomeArquivo) {
     FILE* f = fopen(nomeArquivo, "r");
+    
     if (!f) {
         perror("Erro ao abrir arquivo");
         return NULL;
@@ -33,7 +34,6 @@ Objeto* carregarObjeto(const char* nomeArquivo) {
     fclose(f);
     return obj;
 }
-
 
 void imprimirObjeto(const Objeto* obj) {
     printf("Vertices (%d):\n", obj->numVertices);
