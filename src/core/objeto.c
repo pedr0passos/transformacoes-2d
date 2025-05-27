@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+
 #include "objeto.h"
 
 Objeto* carregarObjeto(const char* nomeArquivo) {
@@ -52,4 +54,30 @@ void desalocarObjeto(Objeto* obj) {
     free(obj->vertices);
     free(obj->arestas);
     free(obj);
+}
+
+// void moverObjeto(Objeto* obj, float deslx, float desly) {
+//     for (int i = 0; i < obj->numVertices; i++) {
+//         obj->vertices[i].x += deslx; 
+//         obj->vertices[i].y += desly; 
+//     }
+// }
+
+// void escalonarObjeto(Objeto* obj, float escalax, float escalay) {
+//     for (int i = 0; i < obj->numVertices; i++) {
+//         obj->vertices[i].x *= escalax; 
+//         obj->vertices[i].y *= escalay; 
+//     }
+// }
+
+void rotacionarObjeto(Objeto* obj, float theta) {
+    float c = cosf(theta);
+    float s = sinf(theta);
+    for (int i = 0; i < obj->numVertices; i++) {
+        float x = obj->vertices[i].x;
+        float y = obj->vertices[i].y;
+        // aplica a matriz de rotação
+        obj->vertices[i].x = x * c - y * s;
+        obj->vertices[i].y = x * s + y * c;
+    }
 }

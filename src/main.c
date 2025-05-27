@@ -4,12 +4,13 @@
 
 #include "objeto.h"
 #include "caneta.h"
+#include "utils.h"
 
 #define WIDTH 800
 #define HEIGHT 600
 
 int SDL_main(int argc, char* argv[]) {
-    Objeto* obj = carregarObjeto("src/objs/obj1.txt");
+    Objeto* obj = carregarObjeto("src/objs/obj5.txt");
     
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         printf("SDL Error: %s\n", SDL_GetError());
@@ -21,7 +22,7 @@ int SDL_main(int argc, char* argv[]) {
         SDL_WINDOWPOS_UNDEFINED, 
         SDL_WINDOWPOS_UNDEFINED, 
         WIDTH, HEIGHT, 
-        SDL_WINDOW_ALLOW_HIGHDPI  
+        SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE | SDL_WINDOW_MAXIMIZED | SDL_WINDOW_OPENGL
     );
 
     if(!window){
@@ -34,7 +35,7 @@ int SDL_main(int argc, char* argv[]) {
     SDL_Event event;
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     
-    // parametros de escala
+    // parametros de escala iniciais
     float deslx = 0.1f, desly = 0.1f;
     float escalax = 0.5f, escalay = 0.5f;
 
@@ -44,6 +45,8 @@ int SDL_main(int argc, char* argv[]) {
             if (event.type == SDL_QUIT) {
                 break;
             }
+            escutarTeclado(&event, &deslx, &desly, &escalax, &escalay);
+            escutarMouse(&event, obj, &deslx, &desly, &escalax, &escalay);
         }
 
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
