@@ -7,8 +7,6 @@ Este projeto tem como objetivo explorar e implementar transformações bidimensi
 - Translação
 - Rotação
 - Escala
-- Reflexão
-- Composição de transformações
 
 ## Tecnologias Utilizadas
 
