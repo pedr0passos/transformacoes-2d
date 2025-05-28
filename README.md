@@ -17,7 +17,7 @@ Este projeto tem como objetivo explorar e implementar transformações bidimensi
 
 1. Clone o repositório:
     ```bash
-    git clone https://github.com/seu-usuario/transformacoes-2d.git
+    git clone https://github.com/pedr0passos/transformacoes-2d.git
     ```
 2. Execute os comandos: 
     ```bash
